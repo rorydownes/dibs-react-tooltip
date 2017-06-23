@@ -47,11 +47,17 @@ class Tooltip extends React.Component {
             tooltipDirection: props.tooltipDirection,
             isVisible: props.isVisible
         };
+
+        this._checkOutsideClick = this._checkOutsideClick.bind(this);
     }
 
     componentDidMount() {
         if (this.state.isVisible) {
             this._adjustPosition();
+        }
+
+        if (this.props.closeOnOutsideClick) {
+            document.addEventListener('click', this._checkOutsideClick, true);
         }
     }
 
@@ -83,6 +89,18 @@ class Tooltip extends React.Component {
                 moved: false,
                 flippedFrom: null
             });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.props.closeOnOutsideClick) {
+            document.addEventListener('click', this._checkOutsideClick);
+        }
+    }
+
+    _checkOutsideClick(e) {
+        if (this.state.isVisible && !this._tooltip.contains(e.target)) {
+            this.props.onCloseClick();
         }
     }
 
@@ -360,6 +378,7 @@ Tooltip.propTypes = {
     isVisible: React.PropTypes.bool,
     hasTriangle: React.PropTypes.bool,
     hasClose: React.PropTypes.bool,
+    closeOnOutsideClick: React.PropTypes.bool,
 
     className: React.PropTypes.string,
     containerClass: React.PropTypes.string,
@@ -400,7 +419,8 @@ Tooltip.defaultProps = {
     onThresholdPassed: () => {},
     getBounds: getWindowBounds,
     hasTriangle: true,
-    hasClose: false
+    hasClose: false,
+    closeOnOutsideClick: false,
 };
 
 module.exports = Tooltip;
