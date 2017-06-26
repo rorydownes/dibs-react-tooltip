@@ -40,12 +40,12 @@
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.3.2",
     "sinon": "^1.17.2",
-    "webpack": "^1.12.9",
-    "react-dom": "^15.6.1"
+    "webpack": "^1.12.9"
   },
   "peerDependencies": {
     "lodash.debounce": "^4.0.8",
-    "react": "^15.0.0"
+    "react": "^15.0.0",
+    "react-dom": "^15.6.1"
   },
   "dependencies": {
     "classnames": "^2.2.5"
