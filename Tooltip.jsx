@@ -58,6 +58,9 @@ class Tooltip extends React.Component {
 
         if (this.props.closeOnOutsideClick) {
             document.addEventListener('click', this._checkOutsideClick, true);
+            this.removeOutsideClickListener = () => {
+                document.removeEventListener('click', this._checkOutsideClick);
+            }
         }
     }
 
@@ -93,8 +96,8 @@ class Tooltip extends React.Component {
     }
 
     componentWillUnmount() {
-        if (this.props.closeOnOutsideClick) {
-            document.addEventListener('click', this._checkOutsideClick);
+        if (this.removeOutsideClickListener) {
+            this.removeOutsideClickListener();
         }
     }
 
